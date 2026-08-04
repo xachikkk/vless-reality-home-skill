@@ -110,6 +110,22 @@ cat > /etc/sing-box/config.json <<EOF
     "auto_detect_interface": true,
     "rules": [
       {"inbound": "dns-in", "action": "hijack-dns"},
+      {"domain_suffix": [
+        "api.ipify.org", "ipinfo.io", "ifconfig.me",
+        "openai.com", "chatgpt.com", "oaistatic.com", "oaiusercontent.com", "openaiusercontent.com",
+        "meta.com", "oculus.com", "facebook.com", "messenger.com", "instagram.com", "cdninstagram.com", "fbcdn.net",
+        "telegram.org", "t.me", "telegram.me", "web.telegram.org",
+        "whatsapp.com", "whatsapp.net",
+        "youtube.com", "youtu.be", "youtube-nocookie.com", "googlevideo.com", "ytimg.com", "youtubei.googleapis.com", "youtube.googleapis.com", "ggpht.com",
+        "x.com", "twitter.com", "t.co", "twimg.com",
+        "discord.com", "discord.gg", "discordcdn.com",
+        "signal.org", "updates.signal.org", "cdn.signal.org",
+        "linkedin.com", "licdn.com",
+        "tiktok.com", "tiktokcdn.com", "byteoversea.com",
+        "patreon.com", "soundcloud.com", "sndcdn.com",
+        "speedtest.net", "speedtestcustom.com", "ookla.com", "ooklaserver.net",
+        "github.com", "raw.githubusercontent.com", "objects.githubusercontent.com", "githubusercontent.com", "githubassets.com"
+      ], "outbound": "usa-vless"},
       {"ip_cidr": ["198.18.0.0/15"], "outbound": "usa-vless"}
     ],
     "final": "direct"
