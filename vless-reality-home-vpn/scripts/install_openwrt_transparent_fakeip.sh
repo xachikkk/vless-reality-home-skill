@@ -42,6 +42,24 @@ backup="/etc/sing-box/config.json.backup.$(date +%Y%m%d%H%M%S)"
 cp /etc/sing-box/config.json "$backup"
 mkdir -p /var/log/sing-box
 
+delete_firewall_sections() {
+  while true; do
+    idx="$(uci show firewall 2>/dev/null | sed -n "s/^firewall\\.@zone\\[\\([0-9][0-9]*\\)\\]\\.name='vless'$/\\1/p" | head -n 1)"
+    [ -n "$idx" ] || break
+    uci -q delete "firewall.@zone[$idx]" || break
+  done
+  while true; do
+    idx="$(uci show firewall 2>/dev/null | sed -n "s/^firewall\\.@forwarding\\[\\([0-9][0-9]*\\)\\]\\.dest='vless'$/\\1/p" | head -n 1)"
+    [ -n "$idx" ] || break
+    uci -q delete "firewall.@forwarding[$idx]" || break
+  done
+  while true; do
+    idx="$(uci show firewall 2>/dev/null | sed -n "s/^firewall\\.@rule\\[\\([0-9][0-9]*\\)\\]\\.name='Allow-LAN-to-VLESS-FakeIP'$/\\1/p" | head -n 1)"
+    [ -n "$idx" ] || break
+    uci -q delete "firewall.@rule[$idx]" || break
+  done
+}
+
 cat > /etc/sing-box/config.json <<EOF
 {
   "log": {"level": "info", "output": "/var/log/sing-box/sing-box.log", "timestamp": true},
@@ -83,6 +101,7 @@ cat > /etc/sing-box/config.json <<EOF
       "address": ["172.19.0.1/30"],
       "mtu": 9000,
       "auto_route": true,
+      "auto_redirect": true,
       "strict_route": false,
       "route_address": ["198.18.0.0/15"],
       "stack": "system"
@@ -156,8 +175,33 @@ do
 done
 uci commit dhcp
 
+delete_firewall_sections
+uci -q delete firewall.vless || true
+uci -q delete firewall.lan_to_vless || true
+uci -q delete firewall.allow_lan_to_vless_fakeip || true
+uci set firewall.vless='zone'
+uci set firewall.vless.name='vless'
+uci set firewall.vless.input='ACCEPT'
+uci set firewall.vless.output='ACCEPT'
+uci set firewall.vless.forward='ACCEPT'
+uci add_list firewall.vless.device='vless-fakeip0'
+uci set firewall.vless.masq='1'
+uci set firewall.lan_to_vless='forwarding'
+uci set firewall.lan_to_vless.src='lan'
+uci set firewall.lan_to_vless.dest='vless'
+uci set firewall.allow_lan_to_vless_fakeip='rule'
+uci set firewall.allow_lan_to_vless_fakeip.name='Allow-LAN-to-VLESS-FakeIP'
+uci set firewall.allow_lan_to_vless_fakeip.src='lan'
+uci set firewall.allow_lan_to_vless_fakeip.dest_ip='198.18.0.0/15'
+uci set firewall.allow_lan_to_vless_fakeip.proto='all'
+uci set firewall.allow_lan_to_vless_fakeip.target='ACCEPT'
+uci commit firewall
+
 /etc/init.d/dnsmasq restart
+/etc/init.d/firewall restart
 /etc/init.d/sing-box restart
+sleep 2
+ip route replace 198.18.0.0/15 dev vless-fakeip0 2>/dev/null || true
 
 echo "Transparent FakeIP mode installed."
 echo "Backup: ${backup}"
