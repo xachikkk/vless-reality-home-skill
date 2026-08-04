@@ -37,8 +37,10 @@ macOS client setup from a VLESS link:
 Add or replace split-routing domains:
 
 ```bash
-./scripts/set_domains.sh api.ipify.org ipinfo.io openai.com chatgpt.com
+./scripts/set_domains.sh api.ipify.org ipinfo.io openai.com chatgpt.com telegram.org t.me youtube.com youtu.be instagram.com
 ```
+
+For common blocked/restricted service domain sets, read `references/blocked-services.md` and add only the services the user explicitly wants.
 
 Verify direct versus proxied routing:
 

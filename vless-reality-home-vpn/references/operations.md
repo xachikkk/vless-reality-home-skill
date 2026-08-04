@@ -60,3 +60,43 @@ Observed working split-routing result:
 - direct: local ISP IP;
 - `api.ipify.org` through local proxy: VPS IP;
 - `ident.me` through local proxy: local ISP IP because it was not in the route list.
+
+## Current Practical Default Domains
+
+Use this as a practical starter set for macOS split routing:
+
+```text
+api.ipify.org
+ipinfo.io
+ifconfig.me
+openai.com
+chatgpt.com
+oaistatic.com
+oaiusercontent.com
+openaiusercontent.com
+telegram.org
+t.me
+telegram.me
+web.telegram.org
+youtube.com
+www.youtube.com
+m.youtube.com
+youtu.be
+youtube-nocookie.com
+googlevideo.com
+ytimg.com
+youtubei.googleapis.com
+youtube.googleapis.com
+ggpht.com
+instagram.com
+www.instagram.com
+cdninstagram.com
+fbcdn.net
+speedtest.net
+www.speedtest.net
+speedtestcustom.com
+ookla.com
+ooklaserver.net
+cdn.speedtest.net
+install.speedtest.net
+```

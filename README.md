@@ -19,7 +19,7 @@ Typical use:
 ```bash
 vless-reality-home-vpn/scripts/install_server.sh root@SERVER_IP
 vless-reality-home-vpn/scripts/install_macos_client.sh 'vless://...'
-vless-reality-home-vpn/scripts/set_domains.sh api.ipify.org ipinfo.io ifconfig.me openai.com chatgpt.com oaistatic.com oaiusercontent.com openaiusercontent.com
+vless-reality-home-vpn/scripts/set_domains.sh api.ipify.org ipinfo.io ifconfig.me openai.com chatgpt.com oaistatic.com oaiusercontent.com openaiusercontent.com telegram.org t.me telegram.me web.telegram.org youtube.com youtu.be googlevideo.com ytimg.com instagram.com cdninstagram.com speedtest.net ookla.com ooklaserver.net
 vless-reality-home-vpn/scripts/verify_split.sh
 ```
 
