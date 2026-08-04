@@ -38,47 +38,23 @@ youtube.googleapis.com
 ggpht.com
 ```
 
-Instagram:
-
-```text
-instagram.com
-www.instagram.com
-cdninstagram.com
-fbcdn.net
-```
-
-Speedtest / Ookla for VLESS speed checks:
-
-```text
-speedtest.net
-www.speedtest.net
-speedtestcustom.com
-ookla.com
-ooklaserver.net
-cdn.speedtest.net
-install.speedtest.net
-```
-
-## Candidates To Discuss Before Adding
-
-Facebook / Meta:
+Meta:
 
 ```text
 facebook.com
-www.facebook.com
-fb.com
+instagram.com
+www.instagram.com
 messenger.com
-facebook.net
+cdninstagram.com
 fbcdn.net
 ```
 
 WhatsApp:
 
 ```text
-whatsapp.com
 web.whatsapp.com
+whatsapp.com
 whatsapp.net
-static.whatsapp.net
 ```
 
 X / Twitter:
@@ -95,8 +71,6 @@ Discord:
 ```text
 discord.com
 discord.gg
-discordapp.com
-discordapp.net
 discordcdn.com
 ```
 
@@ -105,8 +79,66 @@ Signal:
 ```text
 signal.org
 updates.signal.org
-storage.signal.org
 cdn.signal.org
+```
+
+LinkedIn:
+
+```text
+linkedin.com
+licdn.com
+```
+
+TikTok:
+
+```text
+tiktok.com
+tiktokcdn.com
+byteoversea.com
+```
+
+Patreon / SoundCloud:
+
+```text
+patreon.com
+soundcloud.com
+sndcdn.com
+```
+
+Speedtest / Ookla for VLESS speed checks:
+
+```text
+speedtest.net
+www.speedtest.net
+speedtestcustom.com
+ookla.com
+ooklaserver.net
+cdn.speedtest.net
+install.speedtest.net
+```
+
+## Candidates To Discuss Before Adding
+
+Additional Facebook / Meta domains:
+
+```text
+www.facebook.com
+fb.com
+facebook.net
+```
+
+Additional WhatsApp domains:
+
+```text
+static.whatsapp.net
+```
+
+Additional Discord domains:
+
+```text
+discordapp.com
+discordapp.net
+storage.signal.org
 ```
 
 Viber:
@@ -117,38 +149,25 @@ account.viber.com
 download.cdn.viber.com
 ```
 
-LinkedIn:
+Additional LinkedIn domains:
 
 ```text
-linkedin.com
 www.linkedin.com
-licdn.com
 ```
 
-TikTok:
+Additional TikTok domains:
 
 ```text
-tiktok.com
 www.tiktok.com
-tiktokcdn.com
 tiktokv.com
-byteoversea.com
 ibytedtos.com
 ```
 
-Patreon:
+Additional Patreon domains:
 
 ```text
-patreon.com
 www.patreon.com
 patreonusercontent.com
-```
-
-SoundCloud:
-
-```text
-soundcloud.com
-sndcdn.com
 ```
 
 ## Notes
