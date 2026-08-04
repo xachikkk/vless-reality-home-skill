@@ -223,6 +223,7 @@ STOP=10
 USE_PROCD=1
 
 start_service() {
+  mkdir -p /var/log/sing-box
   procd_open_instance
   procd_set_param command ${sing_box_bin} run -c /etc/sing-box/config.json
   procd_set_param respawn 3600 5 5

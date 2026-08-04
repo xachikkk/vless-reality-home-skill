@@ -40,6 +40,7 @@ sni="${sni:-www.apple.com}"
 
 backup="/etc/sing-box/config.json.backup.$(date +%Y%m%d%H%M%S)"
 cp /etc/sing-box/config.json "$backup"
+mkdir -p /var/log/sing-box
 
 cat > /etc/sing-box/config.json <<EOF
 {
