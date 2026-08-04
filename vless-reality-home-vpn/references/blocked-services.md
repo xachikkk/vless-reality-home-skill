@@ -41,6 +41,8 @@ ggpht.com
 Meta:
 
 ```text
+meta.com
+www.meta.com
 facebook.com
 instagram.com
 www.instagram.com

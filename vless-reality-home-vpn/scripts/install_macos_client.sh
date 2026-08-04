@@ -75,6 +75,8 @@ domains = [
     "oaistatic.com",
     "oaiusercontent.com",
     "openaiusercontent.com",
+    "meta.com",
+    "www.meta.com",
     "facebook.com",
     "messenger.com",
     "instagram.com",
