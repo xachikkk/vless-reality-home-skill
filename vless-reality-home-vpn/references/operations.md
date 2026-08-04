@@ -76,6 +76,8 @@ oaiusercontent.com
 openaiusercontent.com
 meta.com
 www.meta.com
+oculus.com
+www.oculus.com
 facebook.com
 messenger.com
 instagram.com
@@ -124,4 +126,11 @@ ookla.com
 ooklaserver.net
 cdn.speedtest.net
 install.speedtest.net
+github.com
+www.github.com
+api.github.com
+raw.githubusercontent.com
+objects.githubusercontent.com
+githubusercontent.com
+githubassets.com
 ```

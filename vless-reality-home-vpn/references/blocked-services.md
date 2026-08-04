@@ -43,6 +43,8 @@ Meta:
 ```text
 meta.com
 www.meta.com
+oculus.com
+www.oculus.com
 facebook.com
 instagram.com
 www.instagram.com
@@ -117,6 +119,18 @@ ookla.com
 ooklaserver.net
 cdn.speedtest.net
 install.speedtest.net
+```
+
+GitHub for skill updates from restricted networks:
+
+```text
+github.com
+www.github.com
+api.github.com
+raw.githubusercontent.com
+objects.githubusercontent.com
+githubusercontent.com
+githubassets.com
 ```
 
 ## Candidates To Discuss Before Adding
