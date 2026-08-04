@@ -6,8 +6,9 @@ usage() {
 Usage:
   install_openwrt_router.sh 'vless://...'
 
-Installs sing-box on an OpenWrt router and enables transparent split routing:
-selected domains go through VLESS Reality, everything else goes direct.
+Installs sing-box on an OpenWrt router and enables a LAN proxy listener.
+Selected domains go through VLESS Reality, everything else goes direct for
+clients that explicitly use the router proxy.
 
 Run this script on the router as root.
 USAGE
@@ -50,10 +51,10 @@ then
   opkg install python3-light python3-urllib
 fi
 
-opkg install ca-bundle kmod-tun kmod-inet-diag
+opkg install ca-bundle kmod-inet-diag
 
 if ! command -v sing-box >/dev/null 2>&1; then
-  opkg install sing-box
+  opkg install sing-box-tiny
 fi
 
 sing_box_bin="$(command -v sing-box)"
@@ -149,18 +150,6 @@ domains = [
     "githubassets.com",
 ]
 
-private_cidrs = [
-    "0.0.0.0/8",
-    "10.0.0.0/8",
-    "100.64.0.0/10",
-    "127.0.0.0/8",
-    "169.254.0.0/16",
-    "172.16.0.0/12",
-    "192.168.0.0/16",
-    "224.0.0.0/4",
-    "240.0.0.0/4",
-]
-
 config = {
     "log": {
         "level": "info",
@@ -180,16 +169,10 @@ config = {
     },
     "inbounds": [
         {
-            "type": "tun",
-            "tag": "router-tun",
-            "interface_name": "vless-tun0",
-            "address": ["172.19.0.1/30"],
-            "mtu": 9000,
-            "auto_route": True,
-            "strict_route": True,
-            "stack": "system",
-            "sniff": True,
-            "sniff_override_destination": True,
+            "type": "mixed",
+            "tag": "lan-proxy",
+            "listen": "0.0.0.0",
+            "listen_port": 7890,
         }
     ],
     "outbounds": [
@@ -217,7 +200,6 @@ config = {
     "route": {
         "auto_detect_interface": True,
         "rules": [
-            {"ip_cidr": private_cidrs, "outbound": "direct"},
             {"domain_suffix": domains, "outbound": "usa-vless"},
         ],
         "final": "direct",
@@ -251,9 +233,7 @@ start_service() {
 EOF
 
 chmod +x /etc/init.d/sing-box
-/etc/init.d/sing-box enable
-/etc/init.d/sing-box restart
 
-echo "sing-box router split routing is installed and started."
-echo "Check with: /etc/init.d/sing-box status"
+echo "sing-box router proxy mode is installed."
+echo "Start with: /etc/init.d/sing-box start"
 echo "Log: tail -f /var/log/sing-box/sing-box.log"
