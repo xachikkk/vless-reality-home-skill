@@ -48,9 +48,12 @@ if [ "$(id -u)" != "0" ]; then
   exit 1
 fi
 
-if ! command -v python3 >/dev/null 2>&1; then
+if ! command -v python3 >/dev/null 2>&1 || ! python3 - <<'PY' >/dev/null 2>&1
+from urllib.parse import urlparse
+PY
+then
   opkg update
-  opkg install python3-light ca-bundle kmod-tun kmod-inet-diag
+  opkg install python3-light python3-urllib ca-bundle kmod-tun kmod-inet-diag
 fi
 
 mkdir -p /usr/local/bin /etc/sing-box /var/log/sing-box /tmp/sing-box-install
