@@ -1,5 +1,7 @@
 # Cudy WR3000S OpenWrt Router Plan
 
+For the finished transparent VLESS router procedure, read `cudy-wr3000s-ready-solution.md`.
+
 ## Hardware And Firmware
 
 Cudy WR3000S 1.0 is suitable for the router phase if it runs OpenWrt.

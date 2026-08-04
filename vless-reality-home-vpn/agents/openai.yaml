@@ -1,4 +1,4 @@
 interface:
   display_name: "VLESS Reality Home VPN"
-  short_description: "Set up VLESS Reality VPS and macOS split VPN"
-  default_prompt: "Use $vless-reality-home-vpn to deploy a VLESS Reality VPS and configure macOS split-routing."
+  short_description: "Set up VLESS Reality on VPS, macOS, and Cudy WR3000S"
+  default_prompt: "Use $vless-reality-home-vpn to deploy VLESS Reality and configure Cudy WR3000S OpenWrt transparent split routing."
