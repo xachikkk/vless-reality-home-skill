@@ -75,6 +75,22 @@ http://192.168.1.1/wpad.dat
 
 DHCP option 252 advertises the PAC file to LAN clients that support proxy auto-discovery. This is safer than TUN because it does not change the router default route.
 
+## Transparent FakeIP Mode
+
+For a true no-device-configuration setup, use transparent FakeIP mode after router proxy mode has been verified:
+
+```sh
+sh /tmp/install_openwrt_transparent_fakeip.sh
+```
+
+This mode keeps `192.168.1.1:7890` as a manual fallback proxy, sends only listed domains to sing-box DNS where they receive FakeIP addresses, and routes only `198.18.0.0/15` through the TUN interface. Ordinary domains stay on the normal ISP path.
+
+Rollback:
+
+```sh
+sh /tmp/rollback_openwrt_transparent_fakeip.sh
+```
+
 ## Rollback
 
 Stop the router VPN:
