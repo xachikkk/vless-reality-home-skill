@@ -50,7 +50,7 @@ fi
 
 if ! command -v python3 >/dev/null 2>&1; then
   opkg update
-  opkg install python3-light ca-bundle kmod-inet-diag
+  opkg install python3-light ca-bundle kmod-tun kmod-inet-diag
 fi
 
 mkdir -p /usr/local/bin /etc/sing-box /var/log/sing-box /tmp/sing-box-install
