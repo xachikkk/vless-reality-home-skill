@@ -31,6 +31,14 @@ ssh root@192.168.1.1
 sh /tmp/install_openwrt_router.sh 'vless://...'
 ```
 
+Safer automatic LAN proxy discovery:
+
+```sh
+scp vless-reality-home-vpn/scripts/install_openwrt_wpad.sh root@192.168.1.1:/tmp/
+ssh root@192.168.1.1
+sh /tmp/install_openwrt_wpad.sh 192.168.1.1 7890
+```
+
 Read `vless-reality-home-vpn/references/cudy-wr3000s-openwrt.md` before flashing or changing a router.
 
 Security notes:

@@ -59,6 +59,22 @@ On the router:
 tail -n 80 /var/log/sing-box/sing-box.log
 ```
 
+## Safer Automatic Client Mode
+
+If TUN transparent routing breaks connectivity, keep `sing-box` in router proxy mode and publish a PAC file:
+
+```sh
+sh /tmp/install_openwrt_wpad.sh 192.168.1.1 7890
+```
+
+This exposes:
+
+```text
+http://192.168.1.1/wpad.dat
+```
+
+DHCP option 252 advertises the PAC file to LAN clients that support proxy auto-discovery. This is safer than TUN because it does not change the router default route.
+
 ## Rollback
 
 Stop the router VPN:
