@@ -4,7 +4,7 @@ set -eu
 usage() {
   cat <<'USAGE'
 Usage:
-  install_openwrt_router.sh 'vless://...' [--version 1.13.16]
+  install_openwrt_router.sh 'vless://...'
 
 Installs sing-box on an OpenWrt router and enables transparent split routing:
 selected domains go through VLESS Reality, everything else goes direct.
@@ -18,14 +18,8 @@ if [ -n "$link" ]; then
   shift || true
 fi
 
-version="1.13.16"
-
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    --version)
-      version="${2:?missing --version value}"
-      shift 2
-      ;;
     -h|--help)
       usage
       exit 0
@@ -48,37 +42,22 @@ if [ "$(id -u)" != "0" ]; then
   exit 1
 fi
 
+opkg update
 if ! command -v python3 >/dev/null 2>&1 || ! python3 - <<'PY' >/dev/null 2>&1
 from urllib.parse import urlparse
 PY
 then
-  opkg update
-  opkg install python3-light python3-urllib ca-bundle kmod-tun kmod-inet-diag
+  opkg install python3-light python3-urllib
 fi
 
-mkdir -p /usr/local/bin /etc/sing-box /var/log/sing-box /tmp/sing-box-install
+opkg install ca-bundle kmod-tun kmod-inet-diag
 
-arch="$(uname -m)"
-case "$arch" in
-  aarch64|arm64) asset_arch="arm64" ;;
-  x86_64) asset_arch="amd64" ;;
-  armv7l|armv7) asset_arch="armv7" ;;
-  *)
-    echo "Unsupported architecture: $arch" >&2
-    exit 1
-    ;;
-esac
+if ! command -v sing-box >/dev/null 2>&1; then
+  opkg install sing-box
+fi
 
-tmp="/tmp/sing-box-install"
-rm -rf "$tmp"
-mkdir -p "$tmp"
-
-url="https://github.com/SagerNet/sing-box/releases/download/v${version}/sing-box-${version}-linux-${asset_arch}.tar.gz"
-wget -O "$tmp/sing-box.tgz" "$url"
-tar -xzf "$tmp/sing-box.tgz" -C "$tmp"
-bin="$(find "$tmp" -type f -name sing-box | head -n 1)"
-cp "$bin" /usr/local/bin/sing-box
-chmod +x /usr/local/bin/sing-box
+sing_box_bin="$(command -v sing-box)"
+mkdir -p /etc/sing-box /var/log/sing-box
 
 python3 - "$link" /etc/sing-box/config.json <<'PY'
 import json
@@ -252,9 +231,9 @@ print(f"domains={len(domains)}")
 PY
 
 chmod 600 /etc/sing-box/config.json
-/usr/local/bin/sing-box check -c /etc/sing-box/config.json
+"$sing_box_bin" check -c /etc/sing-box/config.json
 
-cat > /etc/init.d/sing-box <<'EOF'
+cat > /etc/init.d/sing-box <<EOF
 #!/bin/sh /etc/rc.common
 
 START=99
@@ -263,7 +242,7 @@ USE_PROCD=1
 
 start_service() {
   procd_open_instance
-  procd_set_param command /usr/local/bin/sing-box run -c /etc/sing-box/config.json
+  procd_set_param command ${sing_box_bin} run -c /etc/sing-box/config.json
   procd_set_param respawn 3600 5 5
   procd_set_param stdout 1
   procd_set_param stderr 1
