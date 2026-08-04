@@ -1,0 +1,4 @@
+interface:
+  display_name: "VLESS Reality Home VPN"
+  short_description: "Set up VLESS Reality VPS and macOS split VPN"
+  default_prompt: "Use $vless-reality-home-vpn to deploy a VLESS Reality VPS and configure macOS split-routing."
