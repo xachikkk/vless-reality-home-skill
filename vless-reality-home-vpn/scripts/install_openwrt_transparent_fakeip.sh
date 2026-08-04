@@ -15,6 +15,7 @@ if ! command -v sing-box >/dev/null 2>&1; then
   echo "sing-box is missing. Install sing-box-tiny first." >&2
   exit 1
 fi
+sing_box_bin="$(command -v sing-box)"
 
 if ! command -v jsonfilter >/dev/null 2>&1; then
   opkg update
@@ -154,6 +155,26 @@ EOF
 
 sing-box check -c /etc/sing-box/config.json
 
+cat > /etc/init.d/sing-box <<EOF
+#!/bin/sh /etc/rc.common
+
+START=99
+STOP=10
+USE_PROCD=1
+
+start_service() {
+  mkdir -p /var/log/sing-box
+  procd_open_instance
+  procd_set_param command ${sing_box_bin} run -c /etc/sing-box/config.json
+  procd_set_param respawn 3600 5 5
+  procd_set_param stdout 1
+  procd_set_param stderr 1
+  procd_close_instance
+}
+EOF
+
+chmod +x /etc/init.d/sing-box
+
 uci -q delete dhcp.@dnsmasq[0].server || true
 for domain in \
   api.ipify.org ipinfo.io ifconfig.me \
@@ -199,6 +220,7 @@ uci commit firewall
 
 /etc/init.d/dnsmasq restart
 /etc/init.d/firewall restart
+/etc/init.d/sing-box enable
 /etc/init.d/sing-box restart
 sleep 2
 ip route replace 198.18.0.0/15 dev vless-fakeip0 2>/dev/null || true
