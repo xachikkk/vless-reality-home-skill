@@ -93,9 +93,9 @@ function FindProxyForURL(url, host) {
 }
 EOF
 
-uci -q delete dhcp.lan.dhcp_option
+uci -q delete dhcp.lan.dhcp_option || true
 uci add_list dhcp.lan.dhcp_option="252,http://${router_ip}/wpad.dat"
-uci -q delete dhcp.@dnsmasq[0].address
+uci -q delete dhcp.@dnsmasq[0].address || true
 uci add_list dhcp.@dnsmasq[0].address="/wpad/${router_ip}"
 uci commit dhcp
 /etc/init.d/dnsmasq restart

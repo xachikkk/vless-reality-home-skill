@@ -118,7 +118,7 @@ EOF
 
 sing-box check -c /etc/sing-box/config.json
 
-uci -q delete dhcp.@dnsmasq[0].server
+uci -q delete dhcp.@dnsmasq[0].server || true
 for domain in \
   api.ipify.org ipinfo.io ifconfig.me \
   openai.com chatgpt.com oaistatic.com oaiusercontent.com openaiusercontent.com \

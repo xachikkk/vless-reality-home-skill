@@ -10,7 +10,7 @@ if [ -n "$latest_backup" ]; then
   cp "$latest_backup" /etc/sing-box/config.json
 fi
 
-uci -q delete dhcp.@dnsmasq[0].server
+uci -q delete dhcp.@dnsmasq[0].server || true
 uci commit dhcp
 /etc/init.d/dnsmasq restart
 
