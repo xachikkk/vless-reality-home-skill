@@ -27,9 +27,12 @@ The client script installs:
 - config at `~/.config/sing-box/config.json`;
 - PAC file at `~/.config/vless-home/proxy.pac`;
 - LaunchAgent at `~/Library/LaunchAgents/com.codex.vless-sing-box.plist`;
-- system Auto Proxy URL for the selected network service, default `Wi-Fi`.
+- system HTTP and HTTPS proxy for the selected network service, default `Wi-Fi`;
+- system Auto Proxy URL for the selected network service as a fallback hint.
 
 The local mixed proxy listens on `127.0.0.1:7890`.
+
+Keep HTTP and HTTPS proxy enabled for the active network service. PAC alone can be ignored by some applications, while the explicit proxy setting is more consistently honored.
 
 ## Validation Checklist
 

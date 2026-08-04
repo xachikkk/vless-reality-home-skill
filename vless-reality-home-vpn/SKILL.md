@@ -13,7 +13,7 @@ Use this skill to reproduce a proven setup:
 2. Server core: `sing-box` VLESS inbound with Reality.
 3. Reality handshake target: start with `www.apple.com:443`. In testing, `www.microsoft.com` produced `REALITY: processed invalid connection`; switching to Apple fixed the handshake.
 4. Client core: `sing-box` on macOS with a local mixed proxy at `127.0.0.1:7890`.
-5. Split routing: PAC file sends only chosen domains to the local proxy; other traffic remains direct.
+5. Split routing: enable macOS HTTP/HTTPS proxy to `127.0.0.1:7890`; `sing-box` sends chosen domains through VLESS and sends other traffic direct. PAC may stay enabled as an extra hint, but do not rely on PAC alone.
 6. Router phase: postpone until the computer setup is verified.
 
 Never ask the user to paste permanent passwords or tokens. Prefer SSH keys. If a password has already been disclosed, add key access, disable password SSH login, and ask the user to rotate the root password in the provider panel.
@@ -52,7 +52,7 @@ Verify direct versus proxied routing:
 - Store the client link in `/root/vless/client-link.txt` on the VPS and avoid publishing it.
 - Keep `xray` stopped if this skill installs `sing-box` on port `443`; only one service can bind the port.
 - Use `www.apple.com` first. Change the Reality handshake target only if verification fails or the target becomes unsuitable.
-- For macOS PAC routing, remember that only applications respecting system proxy settings are covered. Full-device packet routing requires TUN mode or a router.
+- For macOS proxy routing, remember that only applications respecting system proxy settings are covered. Full-device packet routing requires TUN mode or a router.
 
 ## Troubleshooting
 

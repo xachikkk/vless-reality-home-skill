@@ -72,6 +72,9 @@ domains = [
     "ifconfig.me",
     "openai.com",
     "chatgpt.com",
+    "oaistatic.com",
+    "oaiusercontent.com",
+    "openaiusercontent.com",
 ]
 
 config = {
@@ -170,6 +173,12 @@ launchctl kickstart -k "gui/$(id -u)/com.codex.vless-sing-box"
 pac_url="file://${HOME}/.config/vless-home/proxy.pac"
 networksetup -setautoproxyurl "$service" "$pac_url"
 networksetup -setautoproxystate "$service" on
+networksetup -setwebproxy "$service" 127.0.0.1 7890 off
+networksetup -setsecurewebproxy "$service" 127.0.0.1 7890 off
+networksetup -setwebproxystate "$service" on
+networksetup -setsecurewebproxystate "$service" on
 
 echo "LaunchAgent: com.codex.vless-sing-box"
 networksetup -getautoproxyurl "$service"
+networksetup -getwebproxy "$service"
+networksetup -getsecurewebproxy "$service"
