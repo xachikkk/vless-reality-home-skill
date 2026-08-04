@@ -15,6 +15,7 @@ Use this skill to reproduce a proven setup:
 4. Client core: `sing-box` on macOS with a local mixed proxy at `127.0.0.1:7890`.
 5. Split routing: enable macOS HTTP/HTTPS proxy to `127.0.0.1:7890`; `sing-box` sends chosen domains through VLESS and sends other traffic direct. PAC may stay enabled as an extra hint, but do not rely on PAC alone.
 6. Router phase: postpone until the computer setup is verified.
+7. Router target: for Cudy WR3000S, prefer OpenWrt 24.10.5+ and the router installer in `scripts/install_openwrt_router.sh`. Read `references/cudy-wr3000s-openwrt.md` first.
 
 Never ask the user to paste permanent passwords or tokens. Prefer SSH keys. If a password has already been disclosed, add key access, disable password SSH login, and ask the user to rotate the root password in the provider panel.
 
@@ -48,6 +49,12 @@ Verify direct versus proxied routing:
 ./scripts/verify_split.sh
 ```
 
+OpenWrt router setup from the router shell:
+
+```sh
+sh /tmp/install_openwrt_router.sh 'vless://...'
+```
+
 ## Operating Rules
 
 - Keep generated private keys only on the VPS.
@@ -55,6 +62,7 @@ Verify direct versus proxied routing:
 - Keep `xray` stopped if this skill installs `sing-box` on port `443`; only one service can bind the port.
 - Use `www.apple.com` first. Change the Reality handshake target only if verification fails or the target becomes unsuitable.
 - For macOS proxy routing, remember that only applications respecting system proxy settings are covered. Full-device packet routing requires TUN mode or a router.
+- For router routing, keep the `vless://...` client link out of GitHub and generated public artifacts. Pass it only at install time or store it only on the router in `/etc/sing-box/config.json`.
 
 ## Troubleshooting
 

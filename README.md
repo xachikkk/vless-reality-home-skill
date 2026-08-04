@@ -23,6 +23,16 @@ vless-reality-home-vpn/scripts/set_domains.sh api.ipify.org ipinfo.io ifconfig.m
 vless-reality-home-vpn/scripts/verify_split.sh
 ```
 
+Router phase for OpenWrt, including Cudy WR3000S:
+
+```sh
+scp vless-reality-home-vpn/scripts/install_openwrt_router.sh root@192.168.1.1:/tmp/
+ssh root@192.168.1.1
+sh /tmp/install_openwrt_router.sh 'vless://...'
+```
+
+Read `vless-reality-home-vpn/references/cudy-wr3000s-openwrt.md` before flashing or changing a router.
+
 Security notes:
 
 - Use SSH keys.
