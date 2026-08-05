@@ -23,6 +23,7 @@ Do not store the real `vless://...` link in GitHub, documentation, screenshots, 
 - transparent interface: `vless-fakeip0`;
 - FakeIP range: `198.18.0.0/15`;
 - Telegram app routing: Telegram CIDR ranges are routed through `vless-fakeip0`, because iOS/Android Telegram can connect directly to MTProto data-center IPs without using `telegram.org` DNS;
+- WhatsApp app routing: main Meta/Facebook CIDR ranges are routed through `vless-fakeip0`, because WhatsApp no longer publishes a complete public CIDR list and mobile apps can use direct Meta IPs;
 - router proxy fallback: `0.0.0.0:7890`;
 - sing-box DNS listener: `127.0.0.1:5353`.
 
@@ -187,6 +188,15 @@ tail -n 120 /var/log/sing-box/sing-box.log
 ```
 
 The mobile app often connects directly to Telegram MTProto IP ranges. The router config must route these CIDRs through `vless-fakeip0`, not only `telegram.org` domains.
+
+WhatsApp Web works but WhatsApp iPhone/Android app does not:
+
+```sh
+ip route | grep -E '31.13|57.141|66.220|69.63|69.171|102.132|129.134|157.240|173.252|185.60|185.89|204.15'
+tail -n 120 /var/log/sing-box/sing-box.log
+```
+
+WhatsApp domains are still routed by DNS/FakeIP through `whatsapp.com`, `whatsapp.net`, and `wa.me`. For mobile apps, the ready solution also routes the main Meta/Facebook CIDR ranges through `vless-fakeip0`. Meta's old public WhatsApp CIDR file no longer provides complete public IP pools.
 
 One Wi-Fi band works and the other does not:
 

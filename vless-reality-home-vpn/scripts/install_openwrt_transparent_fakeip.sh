@@ -115,7 +115,23 @@ cat > /etc/sing-box/config.json <<EOF
         "91.108.56.0/22",
         "149.154.160.0/20",
         "185.76.151.0/24",
-        "95.161.64.0/20"
+        "95.161.64.0/20",
+        "31.13.64.0/18",
+        "45.64.40.0/22",
+        "57.141.0.0/16",
+        "66.220.144.0/20",
+        "69.63.176.0/20",
+        "69.171.224.0/19",
+        "74.119.76.0/22",
+        "102.132.96.0/20",
+        "103.4.96.0/22",
+        "129.134.0.0/16",
+        "157.240.0.0/16",
+        "173.252.64.0/18",
+        "179.60.192.0/22",
+        "185.60.216.0/22",
+        "185.89.216.0/22",
+        "204.15.20.0/22"
       ],
       "stack": "system"
     }
@@ -147,7 +163,7 @@ cat > /etc/sing-box/config.json <<EOF
         "openai.com", "chatgpt.com", "oaistatic.com", "oaiusercontent.com", "openaiusercontent.com",
         "meta.com", "oculus.com", "facebook.com", "messenger.com", "instagram.com", "cdninstagram.com", "fbcdn.net",
         "telegram.org", "t.me", "telegram.me", "web.telegram.org",
-        "whatsapp.com", "whatsapp.net",
+        "whatsapp.com", "whatsapp.net", "wa.me",
         "youtube.com", "youtu.be", "youtube-nocookie.com", "googlevideo.com", "ytimg.com", "youtubei.googleapis.com", "youtube.googleapis.com", "ggpht.com",
         "x.com", "twitter.com", "t.co", "twimg.com",
         "discord.com", "discord.gg", "discordcdn.com",
@@ -168,7 +184,23 @@ cat > /etc/sing-box/config.json <<EOF
         "91.108.56.0/22",
         "149.154.160.0/20",
         "185.76.151.0/24",
-        "95.161.64.0/20"
+        "95.161.64.0/20",
+        "31.13.64.0/18",
+        "45.64.40.0/22",
+        "57.141.0.0/16",
+        "66.220.144.0/20",
+        "69.63.176.0/20",
+        "69.171.224.0/19",
+        "74.119.76.0/22",
+        "102.132.96.0/20",
+        "103.4.96.0/22",
+        "129.134.0.0/16",
+        "157.240.0.0/16",
+        "173.252.64.0/18",
+        "179.60.192.0/22",
+        "185.60.216.0/22",
+        "185.89.216.0/22",
+        "204.15.20.0/22"
       ], "outbound": "usa-vless"},
       {"ip_cidr": ["198.18.0.0/15"], "outbound": "usa-vless"}
     ],
@@ -205,7 +237,7 @@ for domain in \
   openai.com chatgpt.com oaistatic.com oaiusercontent.com openaiusercontent.com \
   meta.com oculus.com facebook.com messenger.com instagram.com cdninstagram.com fbcdn.net \
   telegram.org t.me telegram.me web.telegram.org \
-  whatsapp.com whatsapp.net \
+  whatsapp.com whatsapp.net wa.me \
   youtube.com youtu.be youtube-nocookie.com googlevideo.com ytimg.com youtubei.googleapis.com youtube.googleapis.com ggpht.com \
   x.com twitter.com t.co twimg.com \
   discord.com discord.gg discordcdn.com \
@@ -258,7 +290,23 @@ for cidr in \
   91.108.56.0/22 \
   149.154.160.0/20 \
   185.76.151.0/24 \
-  95.161.64.0/20
+  95.161.64.0/20 \
+  31.13.64.0/18 \
+  45.64.40.0/22 \
+  57.141.0.0/16 \
+  66.220.144.0/20 \
+  69.63.176.0/20 \
+  69.171.224.0/19 \
+  74.119.76.0/22 \
+  102.132.96.0/20 \
+  103.4.96.0/22 \
+  129.134.0.0/16 \
+  157.240.0.0/16 \
+  173.252.64.0/18 \
+  179.60.192.0/22 \
+  185.60.216.0/22 \
+  185.89.216.0/22 \
+  204.15.20.0/22
 do
   ip route replace "$cidr" dev vless-fakeip0 2>/dev/null || true
 done
