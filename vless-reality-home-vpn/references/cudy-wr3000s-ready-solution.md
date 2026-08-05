@@ -22,6 +22,7 @@ Do not store the real `vless://...` link in GitHub, documentation, screenshots, 
 - LAN router IP: `192.168.1.1`;
 - transparent interface: `vless-fakeip0`;
 - FakeIP range: `198.18.0.0/15`;
+- Telegram app routing: Telegram CIDR ranges are routed through `vless-fakeip0`, because iOS/Android Telegram can connect directly to MTProto data-center IPs without using `telegram.org` DNS;
 - router proxy fallback: `0.0.0.0:7890`;
 - sing-box DNS listener: `127.0.0.1:5353`.
 
@@ -177,6 +178,15 @@ ip route | grep 198.18
 ip route get 198.18.0.3
 tail -n 120 /var/log/sing-box/sing-box.log
 ```
+
+Telegram Web works but Telegram iPhone/Android app does not:
+
+```sh
+ip route | grep -E '91.108|91.105|149.154|185.76.151|95.161'
+tail -n 120 /var/log/sing-box/sing-box.log
+```
+
+The mobile app often connects directly to Telegram MTProto IP ranges. The router config must route these CIDRs through `vless-fakeip0`, not only `telegram.org` domains.
 
 One Wi-Fi band works and the other does not:
 

@@ -104,7 +104,19 @@ cat > /etc/sing-box/config.json <<EOF
       "auto_route": true,
       "auto_redirect": true,
       "strict_route": false,
-      "route_address": ["198.18.0.0/15"],
+      "route_address": [
+        "198.18.0.0/15",
+        "91.105.192.0/23",
+        "91.108.4.0/22",
+        "91.108.8.0/22",
+        "91.108.12.0/22",
+        "91.108.16.0/22",
+        "91.108.20.0/22",
+        "91.108.56.0/22",
+        "149.154.160.0/20",
+        "185.76.151.0/24",
+        "95.161.64.0/20"
+      ],
       "stack": "system"
     }
   ],
@@ -145,6 +157,18 @@ cat > /etc/sing-box/config.json <<EOF
         "patreon.com", "soundcloud.com", "sndcdn.com",
         "speedtest.net", "speedtestcustom.com", "ookla.com", "ooklaserver.net",
         "github.com", "raw.githubusercontent.com", "objects.githubusercontent.com", "githubusercontent.com", "githubassets.com"
+      ], "outbound": "usa-vless"},
+      {"ip_cidr": [
+        "91.105.192.0/23",
+        "91.108.4.0/22",
+        "91.108.8.0/22",
+        "91.108.12.0/22",
+        "91.108.16.0/22",
+        "91.108.20.0/22",
+        "91.108.56.0/22",
+        "149.154.160.0/20",
+        "185.76.151.0/24",
+        "95.161.64.0/20"
       ], "outbound": "usa-vless"},
       {"ip_cidr": ["198.18.0.0/15"], "outbound": "usa-vless"}
     ],
@@ -224,6 +248,20 @@ uci commit firewall
 /etc/init.d/sing-box restart
 sleep 2
 ip route replace 198.18.0.0/15 dev vless-fakeip0 2>/dev/null || true
+for cidr in \
+  91.105.192.0/23 \
+  91.108.4.0/22 \
+  91.108.8.0/22 \
+  91.108.12.0/22 \
+  91.108.16.0/22 \
+  91.108.20.0/22 \
+  91.108.56.0/22 \
+  149.154.160.0/20 \
+  185.76.151.0/24 \
+  95.161.64.0/20
+do
+  ip route replace "$cidr" dev vless-fakeip0 2>/dev/null || true
+done
 
 echo "Transparent FakeIP mode installed."
 echo "Backup: ${backup}"
