@@ -50,6 +50,10 @@ sh /tmp/install_openwrt_wpad.sh 192.168.1.1 7890
 Read `vless-reality-home-vpn/references/cudy-wr3000s-ready-solution.md` before changing a live Cudy WR3000S router.
 Read `vless-reality-home-vpn/references/cudy-wr3000s-openwrt.md` before flashing OpenWrt.
 
+Mobile app note:
+
+- Telegram and WhatsApp mobile apps may connect directly to Telegram/Meta IP ranges, so transparent router mode includes CIDR routes in addition to domain/FakeIP rules.
+
 Security notes:
 
 - Use SSH keys.

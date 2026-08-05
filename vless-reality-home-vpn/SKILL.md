@@ -72,6 +72,7 @@ sh /tmp/install_openwrt_transparent_fakeip.sh
 - On Cudy WR3000S, do not tell the user to run `wifi down` while connected by Wi-Fi. Warn before any Wi-Fi or network restart. Prefer `wifi reload`, LuCI, Ethernet, or a planned reboot.
 - If both 5 GHz and 2.4 GHz SSIDs should use VLESS routing, verify both `wireless.*.network` values are `lan`. A known bad state is `network='wan wan6'` on the 2.4 GHz SSID.
 - OpenWrt `/var/log` is temporary. Ensure the router init script creates `/var/log/sing-box` inside `start_service()` before starting sing-box, otherwise autostart can fail after reboot.
+- Telegram and WhatsApp mobile apps can bypass domain rules by connecting directly to service IP ranges. For Cudy WR3000S transparent mode, keep Telegram CIDRs and main Meta/Facebook CIDRs in `scripts/install_openwrt_transparent_fakeip.sh`, route them through `vless-fakeip0`, and document the mobile-app checks in `references/cudy-wr3000s-ready-solution.md`.
 
 ## Troubleshooting
 
@@ -90,3 +91,11 @@ If the server says `REALITY: processed invalid connection`, verify:
 - macOS and VPS clocks are close, or remove `max_time_difference`.
 
 If values match and it still fails, change the Reality handshake target on both sides; `www.apple.com` was the working target in the reference setup.
+
+If Telegram Web or WhatsApp Web works but the iPhone/Android app says there is no internet, do not only add domains. Check that direct Telegram/Meta CIDR routes exist on the router:
+
+```sh
+ip route | grep -E '91.108|91.105|149.154|185.76.151|95.161|31.13|57.141|129.134|157.240|185.60'
+```
+
+Re-run `scripts/install_openwrt_transparent_fakeip.sh` from the current GitHub version if these routes are missing.
